@@ -50,44 +50,6 @@
 }
 
 /* =============================================================================
-   External Link Arrow Badge — matches /about's and /grants' .card-arrow
-   exactly. Black circle + white arrow that signals "opens an external
-   site." Used on the eligible-schools grid; host element needs position:
-   relative. On hover, the badge switches to a continuously sliding
-   purple-to-orange gradient (the brand gradient's own colors) rather
-   than a flat color swap — one consistent motion effect shared sitewide.
-   ============================================================================= */
-.card-arrow {
-  position: absolute;
-  top: var(--space-100);
-  right: var(--space-100);
-  z-index: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  width: 26px;
-  height: 26px;
-  border-radius: 50%;
-  background: var(--c-dark);
-  color: var(--c-white);
-  font-size: 10px;
-  line-height: 1;
-  transition: transform 0.2s ease;
-  pointer-events: none;
-}
-@keyframes card-arrow-slide {
-  0%   { background-position: 0% 50%; }
-  100% { background-position: 200% 50%; }
-}
-a:hover .card-arrow {
-  transform: scale(1.15) translate(2px, -2px);
-  background: linear-gradient(100deg, var(--c-accent), var(--c-red), var(--c-accent));
-  background-size: 220% 100%;
-  animation: card-arrow-slide 1.2s linear infinite;
-}
-
-/* =============================================================================
    Reset
    ============================================================================= */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -129,17 +91,6 @@ img { max-width: 100%; height: auto; display: block; }
   flex-direction: column;
 }
 
-.intro__eyebrow {
-  display: block;
-  font-family: var(--f-sans);
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 1.44px;
-  text-transform: uppercase;
-  color: var(--c-red);
-  margin-bottom: var(--space-100);
-}
-
 .intro__title {
   font-family: var(--f-serif);
   font-size: 48px;
@@ -148,56 +99,6 @@ img { max-width: 100%; height: auto; display: block; }
   color: var(--c-accent);
   margin-bottom: var(--space-300);
 }
-
-/* Status banner — the active 2026 RFP announcement. Pale-orange callout
-   base (matches every other "supplementary info" box on the page), with
-   an eyebrow + headline + contact link layered on top. */
-.intro__notice {
-  background: var(--c-pale-orange);
-  border-left: 3px solid var(--c-red);
-  padding: var(--space-300) var(--space-400);
-}
-
-.intro__notice p {
-  font-family: var(--f-sans);
-  font-size: 16px;
-  font-weight: 600;
-  line-height: 1.6;
-  color: var(--c-dark);
-}
-
-.intro__notice-eyebrow {
-  display: block;
-  font-family: var(--f-sans);
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 1.44px;
-  text-transform: uppercase;
-  color: var(--c-red);
-  margin-bottom: var(--space-100);
-}
-
-.intro__notice-headline {
-  font-family: var(--f-serif);
-  font-size: 24px;
-  font-weight: 600;
-  color: var(--c-dark);
-  margin-bottom: var(--space-300);
-}
-
-.intro__notice-contact {
-  display: inline-block;
-  margin-top: var(--space-200);
-  font-family: var(--f-sans);
-  font-size: 14px;
-  font-weight: 700;
-  color: var(--c-red);
-  border-bottom: 1px solid var(--c-red);
-  padding-bottom: 2px;
-  transition: opacity 0.15s;
-}
-
-.intro__notice-contact:hover { opacity: 0.7; }
 
 .intro__body {
   display: flex;
@@ -222,12 +123,13 @@ img { max-width: 100%; height: auto; display: block; }
    ============================================================================= */
 /* Outer section stays white — its top padding IS the visible white gap
    separating the orange band from the intro section above. The orange
-   itself lives one level in, on .rfp-archive__band, and this is now the
-   page's last section, so bottom padding closes the page out. */
+   itself lives one level in, on .rfp-archive__band; the white section
+   below the band (.rfp-archive__below) owns its own bottom padding,
+   matching /home's white-section rhythm, so this section contributes
+   no padding-bottom of its own. */
 .rfp-archive {
   background: var(--c-bg);
   padding-top: var(--space-600);
-  padding-bottom: var(--space-600);
 }
 
 .rfp-archive__band {
@@ -235,10 +137,59 @@ img { max-width: 100%; height: auto; display: block; }
   padding-block: var(--space-1000);
 }
 
-.rfp-archive__title {
+/* Wrapper for content that sits below the orange band, still inside the
+   white .rfp-archive section — reuses the shared __inner sizing rule.
+   Padding matches /home's white-section convention exactly (e.g.
+   .whats-new: padding-top:80px, padding-bottom:64px), since this is a
+   full white section in its own right, not just a gap-filler. */
+.rfp-archive__below {
+  padding-top: var(--space-1000);
+  padding-bottom: var(--space-800);
+}
+
+/* Framed card — title stacked above content — matching the bordered,
+   softly-shadowed teaser box style used elsewhere sitewide (serif title,
+   generous padding, subtle depth). No eyebrow above the title: this
+   repo doesn't use eyebrow/kicker labels anywhere, per the sitewide
+   convention documented in this repo's own README. */
+.rfp-archive__past {
+  display: flex;
+  flex-direction: column;
+  background: var(--c-white);
+  border: 1px solid rgba(13, 13, 12, 0.08);
+  padding: var(--space-600);
+  box-shadow: 0 24px 48px rgba(13, 13, 12, 0.06);
+}
+
+.rfp-archive__past-title {
   font-family: var(--f-serif);
-  font-size: 32px;
+  font-size: 40px;
   font-weight: 600;
+  line-height: 1.1;
+  color: var(--c-dark);
+  margin-bottom: var(--space-400);
+}
+
+.rfp-archive__past-content {
+  min-width: 0;
+}
+
+@media (max-width: 900px) {
+  .rfp-archive__past { padding: var(--space-400); }
+  .rfp-archive__past-title { font-size: 32px; }
+}
+
+/* Sans-serif, not serif — matches the sitewide section-heading pattern
+   (DM Sans 40px/700, e.g. /grants' own .rfp__title, /about's
+   .partners__title and .related-centers__title) per the README's type
+   guidance: EB Garamond is reserved for page-level headlines/quotes/the
+   wordmark, not mid-page section headings like this one. */
+.rfp-archive__title {
+  font-family: var(--f-sans);
+  font-size: 40px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
   color: var(--c-white);
   margin-bottom: var(--space-300);
 }
@@ -251,8 +202,6 @@ img { max-width: 100%; height: auto; display: block; }
 }
 
 .rfp-archive__box + .rfp-archive__box { margin-top: var(--space-300); }
-
-.rfp-archive__box:hover { border-color: var(--c-red); }
 
 .rfp-archive__summary {
   display: flex;
@@ -272,12 +221,36 @@ img { max-width: 100%; height: auto; display: block; }
   color: var(--c-dark);
 }
 
+/* Dropdown arrow badge — same circular badge + sliding gradient hover
+   treatment as the sitewide .card-arrow (external-link badge on about's
+   and grants' logo tiles), just pointing down for a toggle instead of
+   diagonal for an external link. Rotates 180deg when the box is open. */
 .rfp-archive__summary::after {
   content: '\25BE';
   margin-left: auto;
-  font-size: 14px;
-  color: var(--c-red);
-  transition: transform 0.15s ease;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--c-dark);
+  color: var(--c-white);
+  font-size: 12px;
+  line-height: 1;
+  transition: transform 0.2s ease;
+}
+
+@keyframes rfp-archive__arrow-slide {
+  0%   { background-position: 0% 50%; }
+  100% { background-position: 200% 50%; }
+}
+
+.rfp-archive__box:hover .rfp-archive__summary::after {
+  background: linear-gradient(100deg, var(--c-accent), var(--c-red), var(--c-accent));
+  background-size: 220% 100%;
+  animation: rfp-archive__arrow-slide 1.2s linear infinite;
 }
 
 .rfp-archive__box[open] .rfp-archive__summary {
@@ -287,6 +260,22 @@ img { max-width: 100%; height: auto; display: block; }
 }
 
 .rfp-archive__box[open] .rfp-archive__summary::after { transform: rotate(180deg); }
+
+/* Static variant — same box/header look as the collapsible boxes above,
+   permanently "open": no dropdown arrow, no pointer cursor, content
+   always visible. Used for the 2026 box now that it's not a toggle. */
+.rfp-archive__box--static { cursor: default; }
+
+.rfp-archive__box--static:hover { border-color: rgba(13, 13, 12, 0.08); }
+
+.rfp-archive__box--static .rfp-archive__summary {
+  cursor: default;
+  margin-bottom: var(--space-400);
+  padding-bottom: var(--space-300);
+  border-bottom: 1px solid rgba(13, 13, 12, 0.08);
+}
+
+.rfp-archive__box--static .rfp-archive__summary::after { display: none; }
 
 .rfp-archive__subhead {
   font-family: var(--f-sans);
@@ -425,7 +414,6 @@ img { max-width: 100%; height: auto; display: block; }
 }
 
 .school-block__link {
-  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -436,15 +424,6 @@ img { max-width: 100%; height: auto; display: block; }
   padding: var(--space-250) var(--space-150);
   background: var(--c-white);
   border: 1px solid rgba(13, 13, 12, 0.08);
-  text-decoration: none;
-  transition: box-shadow 0.15s, transform 0.15s;
-}
-
-/* Lift + shadow on hover, no border-color change — matches /about's and
-   /grants' .school-block__link:hover exactly. */
-.school-block__link:hover {
-  box-shadow: 0 12px 24px rgba(13, 13, 12, 0.16);
-  transform: translateY(-4px);
 }
 
 .school-block__logo {
@@ -552,7 +531,8 @@ img { max-width: 100%; height: auto; display: block; }
 
 @media (max-width: 640px) {
   .intro__title { font-size: 32px; }
-  .intro__notice-headline { font-size: 20px; }
+  .rfp-archive__title { font-size: 32px; }
+  .rfp-archive__below-title { font-size: 32px; }
   .rfp-archive__box { padding: var(--space-300); }
   .rfp-archive__summary-title { font-size: 20px; }
   .dates-row { flex-direction: column; gap: var(--space-300); }
