@@ -180,14 +180,18 @@ img { max-width: 100%; height: auto; display: block; }
 }
 
 /* Sans-serif, not serif — matches the sitewide section-heading pattern
-   (DM Sans 40px/700, e.g. /grants' own .rfp__title, /about's
-   .partners__title and .related-centers__title) per the README's type
-   guidance: EB Garamond is reserved for page-level headlines/quotes/the
-   wordmark, not mid-page section headings like this one. */
+   (DM Sans, e.g. /grants' own .rfp__title, /about's .partners__title and
+   .related-centers__title) per the README's type guidance: EB Garamond is
+   reserved for page-level headlines/quotes/the wordmark, not mid-page
+   section headings like this one. Weight 600, not 700 — this heading sits
+   on the colored orange band, and /about's own equivalents (.partners__title,
+   .related-centers__title) are deliberately pulled back from 700 to 600 on
+   colored-block backgrounds; 700 is reserved for white-background section
+   headings like /grants' .rfp__title. */
 .rfp-archive__title {
   font-family: var(--f-sans);
   font-size: 40px;
-  font-weight: 700;
+  font-weight: 600;
   letter-spacing: -0.02em;
   line-height: 1.15;
   color: var(--c-white);
@@ -221,12 +225,15 @@ img { max-width: 100%; height: auto; display: block; }
   color: var(--c-dark);
 }
 
-/* Dropdown arrow badge — same circular badge + sliding gradient hover
-   treatment as the sitewide .card-arrow (external-link badge on about's
-   and grants' logo tiles), just pointing down for a toggle instead of
-   diagonal for an external link. Rotates 180deg when the box is open. */
+/* Dropdown arrow badge — the exact sitewide .card-arrow (external-link
+   badge on about's and grants' logo tiles): same glyph (↗), same 26px
+   dark circle, same 10px glyph size, same sliding gradient hover. Rotated
+   135deg at rest so the diagonal glyph reads as pointing straight down
+   (a toggle, not an external link); rotated another 180deg or so (in
+   this instance stops at 315deg) when the box is open, so it points back
+   up. */
 .rfp-archive__summary::after {
-  content: '\25BE';
+  content: '\2197';
   margin-left: auto;
   flex-shrink: 0;
   display: flex;
@@ -237,8 +244,9 @@ img { max-width: 100%; height: auto; display: block; }
   border-radius: 50%;
   background: var(--c-dark);
   color: var(--c-white);
-  font-size: 12px;
+  font-size: 10px;
   line-height: 1;
+  transform: rotate(135deg);
   transition: transform 0.2s ease;
 }
 
@@ -259,7 +267,7 @@ img { max-width: 100%; height: auto; display: block; }
   border-bottom: 1px solid rgba(13, 13, 12, 0.08);
 }
 
-.rfp-archive__box[open] .rfp-archive__summary::after { transform: rotate(180deg); }
+.rfp-archive__box[open] .rfp-archive__summary::after { transform: rotate(315deg); }
 
 /* Static variant — same box/header look as the collapsible boxes above,
    permanently "open": no dropdown arrow, no pointer cursor, content
