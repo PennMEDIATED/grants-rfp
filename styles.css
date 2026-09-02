@@ -166,8 +166,8 @@ img { max-width: 100%; height: auto; display: block; }
 }
 
 /* Framed card — title stacked above content — matching the bordered,
-   softly-shadowed teaser box style used elsewhere sitewide (serif title,
-   generous padding, subtle depth). No eyebrow above the title: this
+   softly-shadowed teaser box style used elsewhere sitewide (generous
+   padding, subtle depth). No eyebrow above the title: this
    repo doesn't use eyebrow/kicker labels anywhere, per the sitewide
    convention documented in this repo's own README. */
 .rfp-archive__past {
@@ -175,17 +175,21 @@ img { max-width: 100%; height: auto; display: block; }
   flex-direction: column;
   background: var(--c-white);
   border: 1px solid rgba(13, 13, 12, 0.08);
-  padding: var(--space-600);
-  box-shadow: 0 24px 48px rgba(13, 13, 12, 0.06);
+  padding: var(--space-800);
+  box-shadow: 0 20px 60px rgba(13, 13, 12, 0.08);
 }
 
+/* Sans, weight 700: sitewide, 700 is the white-background section-heading
+   weight and 600 is reserved for headings on colored blocks. Same rule as
+   grants-overview's .section-title. */
 .rfp-archive__past-title {
-  font-family: var(--f-serif);
+  font-family: var(--f-sans);
   font-size: var(--fs-h2);
-  font-weight: 600;
+  font-weight: 700;
+  letter-spacing: -0.02em;
   line-height: var(--lh-heading);
   color: var(--c-dark);
-  margin-bottom: var(--space-400);
+  margin-bottom: var(--space-300);
 }
 
 .rfp-archive__past-content {
@@ -194,6 +198,9 @@ img { max-width: 100%; height: auto; display: block; }
 
 @media (max-width: 900px) {
   .rfp-archive__past { padding: var(--space-400); }
+}
+@media (max-width: 480px) {
+  .rfp-archive__past { padding: var(--space-250); }
 }
 
 /* Sans-serif, not serif — matches the sitewide section-heading pattern
