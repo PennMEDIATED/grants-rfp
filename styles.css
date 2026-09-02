@@ -101,7 +101,7 @@ img { max-width: 100%; height: auto; display: block; }
 .intro {
   background: var(--c-bg);
   padding-top: var(--space-1000);
-  padding-bottom: var(--space-300);
+  padding-bottom: var(--space-600);
 }
 
 .intro__inner {
@@ -240,6 +240,10 @@ img { max-width: 100%; height: auto; display: block; }
   font-weight: 700;
   letter-spacing: -0.02em;
   color: var(--c-dark);
+  min-width: 0;              /* flex items default to min-width:auto, which
+                                pins this to its longest word and pushes the
+                                summary row wider than its container */
+  overflow-wrap: break-word;
 }
 
 /* Dropdown arrow badge — the exact sitewide .card-arrow (external-link

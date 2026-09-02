@@ -43,7 +43,7 @@ All four repos are static HTML/CSS built off the same design system. If you're a
 - `--f-serif`: `'EB Garamond', Georgia, 'Times New Roman', serif` — page-level headlines only (`.intro__title`, `.rfp-archive__past-title`), quotes, the "MEDIATED" wordmark. Not used for mid-page section headings.
 - `--f-sans`: `'DM Sans', system-ui, -apple-system, sans-serif` — everything else, including mid-page section headings (`.rfp-archive__title`), small meta labels, and body copy.
 
-**Layout:** `--max-w: 1440px` page cap, `--pad-x: var(--space-1000)` (80px) side padding on the shared `*__inner` containers, scaling down responsively to `--space-400` (32px) under 900px and `--space-250` (20px) under 480px — same breakpoints as `home`/`grants`.
+**Layout:** `--max-w: 1440px` page cap, `--pad-x: var(--space-1000)` (80px) side padding on the shared `*__inner` containers, scaling down responsively to `--space-400` (32px) under 900px and `--space-250` (20px) under 480px — same breakpoints as `home`/`grants`. Grid and flex children shrink below their content: grid tracks are `minmax(0, 1fr)` rather than `1fr`, and flex items that hold text carry `min-width: 0`. Without those, a track or item is pinned to its widest child and pushes the page wider than the viewport on small screens.
 
 ### Layout conventions
 
@@ -95,3 +95,5 @@ The top five are `clamp()` values that interpolate across the viewport, so table
 **Line heights are tokens too** — `--lh-display` 1.05, `--lh-heading` 1.15, `--lh-lede` 1.26, `--lh-title` 1.3, `--lh-body` 1.55. Never set a line-height in px; it breaks the fluid sizes.
 
 **Heading gaps.** Section title to first content is `var(--space-300)` (24px); page or hero title to content is `var(--space-250)` (20px).
+
+**Section rhythm.** A full-width colored section carries `var(--space-1000)` (80px) top and bottom padding, so its heading never sits flush against the band's edge. The page hero's bottom padding is `var(--space-600)` (48px) — shorter than 80px because the section below supplies its own.
