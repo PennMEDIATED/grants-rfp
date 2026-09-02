@@ -83,7 +83,7 @@ img { max-width: 100%; height: auto; display: block; }
 .intro {
   background: var(--c-bg);
   padding-top: var(--space-1000);
-  padding-bottom: var(--space-600);
+  padding-bottom: var(--space-300);
 }
 
 .intro__inner {
@@ -129,7 +129,7 @@ img { max-width: 100%; height: auto; display: block; }
    no padding-bottom of its own. */
 .rfp-archive {
   background: var(--c-bg);
-  padding-top: var(--space-600);
+  padding-top: 0;
 }
 
 .rfp-archive__band {
