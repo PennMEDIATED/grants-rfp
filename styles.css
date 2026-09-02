@@ -290,21 +290,42 @@ img { max-width: 100%; height: auto; display: block; }
 
 .rfp-archive__box[open] .rfp-archive__summary::after { transform: rotate(315deg); }
 
-/* Static variant — same box/header look as the collapsible boxes above,
-   permanently "open": no dropdown arrow, no pointer cursor, content
-   always visible. Used for the 2026 box now that it's not a toggle. */
-.rfp-archive__box--static { cursor: default; }
-
-.rfp-archive__box--static:hover { border-color: rgba(13, 13, 12, 0.08); }
+/* Static variant — permanently "open": no dropdown arrow, no pointer
+   cursor, content always visible. Unlike the collapsible boxes it carries
+   no panel of its own: it sits directly on the orange band, so the band is
+   the surface and the box contributes no background, border or padding.
+   The band's own --space-1000 padding and .rfp-archive__inner's --pad-x
+   do the insetting. */
+.rfp-archive__box--static {
+  cursor: default;
+  background: none;
+  border: 0;
+  padding: 0;
+}
 
 .rfp-archive__box--static .rfp-archive__summary {
   cursor: default;
   margin-bottom: var(--space-400);
   padding-bottom: var(--space-300);
-  border-bottom: 1px solid rgba(13, 13, 12, 0.08);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.28);
 }
 
 .rfp-archive__box--static .rfp-archive__summary::after { display: none; }
+
+/* Copy sitting directly on the orange band, mirroring team-leadership's
+   .team-section--gradient treatment. The red inline-link colour is
+   invisible against --c-red, so links on the band go white. */
+.rfp-archive__band .rfp-archive__summary-title,
+.rfp-archive__band .rfp-archive__subhead,
+.rfp-archive__band .rfp__text {
+  color: var(--c-white);
+}
+
+.rfp-archive__band .rfp__text a {
+  color: var(--c-white);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+}
 
 .rfp-archive__subhead {
   font-family: var(--f-sans);
@@ -559,6 +580,6 @@ img { max-width: 100%; height: auto; display: block; }
 }
 
 @media (max-width: 640px) {
-  .rfp-archive__box { padding: var(--space-300); }
+  .rfp-archive__box:not(.rfp-archive__box--static) { padding: var(--space-300); }
   .dates-row { flex-direction: column; gap: var(--space-300); }
 }
