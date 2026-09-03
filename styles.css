@@ -24,13 +24,18 @@
   --c-light-bg:   #f8f7f4;          /* rgb(248,247,244)*/
   --c-accent:     #5533ee;          /* rgb(85,51,238)  */
   --c-red:        #f03d1f;          /* rgb(240,61,31)  */
+  /* Deeper red-orange — the gradient's closing stop, promoted to a token
+     of its own. Link text on a white/light ground uses this: --c-red
+     only reaches ~3.9:1 against white, this clears 4.5:1. --c-red stays
+     the brand accent for fills, borders, icons, tags and labels. */
+  --c-red-dark:   #df3611;
   --c-gray:       #888680;          /* rgb(136,134,128)*/
   --c-gray-dark:  #54534f;          /* rgb(84,83,79) — opaque body copy, ~8:1 on white */
   --c-white:      #ffffff;
   --c-pale-orange: #fce4dc;         /* --c-red tinted ~12% onto white — callout boxes */
 
   /* Brand gradient — used on every purple-to-red surface, matches /about and /home */
-  --c-gradient: linear-gradient(150deg, #5533ee 0%, #df3611 81%);
+  --c-gradient: linear-gradient(150deg, #5533ee 0%, var(--c-red-dark) 81%);
 
   /* ── Figma typography tokens ── */
   --f-serif: 'EB Garamond', Georgia, 'Times New Roman', serif;
@@ -379,7 +384,7 @@ img { max-width: 100%; height: auto; display: block; }
    The .rfp-archive__band override above keeps the white-on-colour
    variant. */
 .rfp__text a {
-  color: var(--c-red);
+  color: var(--c-red-dark);
   font-weight: 500;
   transition: opacity 0.15s;
 }
