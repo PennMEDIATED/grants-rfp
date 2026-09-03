@@ -330,11 +330,7 @@ img { max-width: 100%; height: auto; display: block; }
   transition: opacity 0.15s;
 }
 
-.rfp-archive__band .rfp__text a:hover {
-  color: var(--c-white);
-  border-color: rgba(255, 255, 255, 0.5);
-  opacity: 0.7;
-}
+.rfp-archive__band .rfp__text a:hover { opacity: 0.7; }
 
 .rfp-archive__subhead {
   font-family: var(--f-sans);
@@ -376,20 +372,19 @@ img { max-width: 100%; height: auto; display: block; }
   margin-bottom: var(--space-200);
 }
 
-/* Matches the red/500/opacity-hover treatment used by data's .intro__body a,
-   blog's .post-excerpt a and our-team-faculty's bio links.
-   NOTE: about/README.md documents a different *intended* sitewide rule for
-   this slot — dark text with an underline, turning --c-red on hover — and
-   events implements that one. The two are unreconciled; see about's
-   "Hyperlinks in body copy" section before treating either as canonical. */
+/* In-text links (Hyperlinks category 1) on a white/light ground:
+   --c-red, no underline, fading to opacity 0.7 on hover — the same
+   fade the coloured-ground rule uses. Colour is the affordance here;
+   the underline belongs to category 2's independent links.
+   The .rfp-archive__band override above keeps the white-on-colour
+   variant. */
 .rfp__text a {
-  color: var(--c-dark);
+  color: var(--c-red);
   font-weight: 500;
-  border-bottom: 1px solid rgba(13, 13, 12, 0.35);
-  transition: color 0.15s, border-color 0.15s;
+  transition: opacity 0.15s;
 }
 
-.rfp__text a:hover { color: var(--c-red); border-color: var(--c-red); }
+.rfp__text a:hover { opacity: 0.7; }
 
 /* "Upcoming" status pill — same shape as .tag--closed, purple instead of
    red so an open-in-the-future cycle reads distinctly from a closed one. */
