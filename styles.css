@@ -319,6 +319,15 @@ img { max-width: 100%; height: auto; display: block; }
 
 .rfp-archive__box--static .rfp-archive__summary::after { display: none; }
 
+/* The 2026 block is a short "coming soon" note, not a document: its lead-in
+   line sits at body size like the paragraphs under it and carries its
+   emphasis with weight alone. The 2025 box keeps --fs-lede subheads, where
+   they head real sections of RFP content. */
+.rfp-archive__box--static .rfp-archive__subhead {
+  font-size: var(--fs-body);
+  margin-top: 0;
+}
+
 /* Copy sitting directly on the orange band, mirroring team-leadership's
    .team-section--gradient treatment. The red inline-link colour is
    invisible against --c-red, so links on the band go white. */
@@ -328,10 +337,12 @@ img { max-width: 100%; height: auto; display: block; }
   color: var(--c-white);
 }
 
+/* The documented exception to the rule above: on a colored band the red is
+   invisible, so links go white with a hairline rule under them — the same
+   form as events' .seminar__body a on its gradient. */
 .rfp-archive__band .rfp__text a {
   color: var(--c-white);
-  text-decoration-thickness: 1px;
-  text-underline-offset: 2px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.5);
 }
 
 .rfp-archive__subhead {
@@ -374,11 +385,16 @@ img { max-width: 100%; height: auto; display: block; }
   margin-bottom: var(--space-200);
 }
 
+/* Sitewide inline-link treatment: red, 500, no underline, opacity on hover
+   and no colour change. Same rule as data's .intro__body a, events'
+   .event-card__caption a and blog's .post-excerpt a. */
 .rfp__text a {
   color: var(--c-red);
   font-weight: 500;
-  text-decoration: underline;
+  transition: opacity 0.15s;
 }
+
+.rfp__text a:hover { opacity: 0.7; }
 
 /* "Upcoming" status pill — same shape as .tag--closed, purple instead of
    red so an open-in-the-future cycle reads distinctly from a closed one. */
