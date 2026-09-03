@@ -61,7 +61,43 @@ All four repos are static HTML/CSS built off the same design system. If you're a
 - **Image sizing — avoid the squash bug**: size logos with `max-height` + `max-width: 100%` and `width: auto; height: auto;` — not a fixed `height` + `max-width: 100%` pair, which distorts wide lockups once the grid column narrows enough to hit the `max-width` cap while height stays pinned. Use a `--modifier` class (e.g. `.school-block__logo--seas`) to bump `max-height` for a lockup that reads too small next to its neighbors at the shared size.
 - **Dropdown arrow badge**: `.rfp-archive__summary::after` is a 26px circular badge (dark background, white glyph) — the same visual language as `about`'s/`grants`' `.card-arrow` external-link badge, but pointing down (▾, rotating 180° when the box is `[open]`) instead of diagonal, since this signals an in-page toggle rather than an external link. On hover of the box, the badge switches to the same continuously sliding purple-to-red gradient used by `.card-arrow` (`linear-gradient(100deg, var(--c-accent), var(--c-red), var(--c-accent))`, animated via `background-position`) rather than a flat color swap — keep this consistent if either badge changes.
 - **Dropdown box (`.rfp-archive__box`)**: neutral border (`rgba(13,13,12,0.08)`) at rest and on hover — no border-color change on hover (the color signal lives entirely in the arrow badge now, not the box border).
-- **Hyperlinks in body copy**: inline links inside flowing prose use the shared sitewide treatment — `color: var(--c-red)`, `font-weight: 500`, **no underline**, `opacity: 0.7` on hover with no colour change. Same rule as `data`'s `.intro__body a`, `blog`'s `.post-excerpt a` and `our-team-faculty`'s bio links. **Note:** `about/README.md` documents a different *intended* rule for this slot — dark text with an underline, turning `--c-red` on hover — which `events` implements. The two are unreconciled; check `about`'s "Hyperlinks in body copy" section before treating either as canonical. The one exception is a link on a colored band, where red is invisible against `--c-red`: those go `--c-white` with a `1px solid rgba(255,255,255,0.5)` bottom rule, matching `events`' `.seminar__body a` on its gradient. Both variants keep the same `opacity: 0.7` hover — don't add a colour change, and don't use `text-decoration: underline` for either.
+## Hyperlinks
+
+One taxonomy, five categories, shared by every page repo. Pick the category by what the link *is*, not by which repo you happen to be editing.
+
+**1. In-text links** — embedded mid-sentence in flowing prose.
+
+| ground | text | underline | hover |
+| --- | --- | --- | --- |
+| white / light | `--c-dark` | `border-bottom: 1px solid rgba(13, 13, 12, 0.35)` | text and underline both turn `--c-red` |
+| colour / gradient | `--c-white` | `border-bottom: 1px solid rgba(255, 255, 255, 0.5)` | fade to `opacity: 0.7` — no colour swap |
+
+The underline is a `border-bottom`, not `text-decoration`, so its colour can be transitioned independently of the text on hover. Pair it with `transition: color 0.15s, border-color 0.15s` on light grounds and `transition: opacity 0.15s` on coloured ones.
+
+White-to-anything reads poorly on a saturated ground, which is why the coloured case fades instead of changing hue.
+
+**2. Independent links** — a standalone text link that isn't inside a sentence ("Learn More About the Center", "Download the Full Schedule"). Same colours, decoration and hover as category 1, **plus a thin arrow** `⟶` after the text. Use `⟶` (`&#10230;`), not the `↗` badge from category 4.
+
+**3. Document buttons** — an independent link that opens a document (a PDF, a report). A filled button box, not text:
+
+| ground | box | text |
+| --- | --- | --- |
+| white / light | `--c-red` | `--c-white` |
+| colour / gradient | `--c-white` | `--c-dark` |
+
+Hover is **movement, not colour** — a lift or nudge. Do not darken or recolour the box.
+
+**4. Links to another web page** — this site or an external one. The containing box carries the shared `.card-arrow`: a 26px dark circle with a white `↗`, in the box's top corner. On hover the arrow scales slightly and its background becomes a sliding purple-to-orange gradient (`@keyframes card-arrow-slide`), and the box itself animates. No separate text button — the whole box is the link.
+
+**Exception:** a link to a research paper is category 2, not this — thin arrow, no badge.
+
+**5. Hyperlinked headings** — a heading that is itself a link (a post title, a card title). Colour shift on hover per the ground rules above, and **no arrow and no underline**.
+
+### Dropdowns and disclosures
+
+A dropdown, `<details>` block or expand/collapse control uses one affordance sitewide: a **chevron SVG** (`M2 5l5 5 5-5`, 13×13, `--c-red` stroke, `stroke-width: 1.8`) beside a `--c-red` label at `--fs-small`, rotating `180deg` on open with `transition: transform 0.25s`. See `llm-civic-discourse`'s "Full summary & details" toggle for the reference implementation.
+
+Never leave the marker to the browser — style `<select>` with `appearance: none` and supply the chevron, and hide the native `<summary>` marker. The `↗` circle badge is category 4's language and does not belong on a disclosure control.
 
 - **Static vs. collapsible boxes**: `.rfp-archive__box--static` (used for the "Coming Soon" 2026 box) reuses the collapsible box's markup, permanently in its "open" state — no arrow, no pointer cursor, content always visible. It carries no panel of its own: it sits directly on the orange band, so it has no background, border or padding, and the band's `--space-1000` padding plus `.rfp-archive__inner`'s `--pad-x` do the insetting. Copy on a colored band goes `--c-white`, including inline links, since the red link color is invisible against `--c-red` — the same treatment as `team-leadership`'s `.team-section--gradient`. Use this modifier for any future box that shouldn't be collapsible rather than inventing a new component. Its copy is all one size — the lead-in `.rfp-archive__subhead` drops to `--fs-body` there and carries its emphasis with weight alone, since the block is a short note rather than a document. The collapsible 2025 box keeps `--fs-lede` subheads, where they head real sections of RFP content.
 - **Framed card (`.rfp-archive__past`)**: a bordered, softly-shadowed white card (DM Sans 700 title stacked above content) used to set the "Past Requests for Proposals" section apart from the plain page background. `border: 1px solid rgba(13,13,12,0.08)` + `box-shadow: 0 20px 60px rgba(13,13,12,0.08)` + `var(--space-800)` padding, stepping to `--space-400` under 900px and `--space-250` under 480px — the same white-block treatment as `home`'s `.about-center__card` and `grants-overview`'s `section.body-section`. All three carry identical values; change one and change the others.

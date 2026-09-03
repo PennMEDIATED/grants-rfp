@@ -253,40 +253,25 @@ img { max-width: 100%; height: auto; display: block; }
   overflow-wrap: break-word;
 }
 
-/* Dropdown arrow badge — the exact sitewide .card-arrow (external-link
-   badge on about's and grants' logo tiles): same glyph (↗), same 26px
-   dark circle, same 10px glyph size, same sliding gradient hover. Rotated
-   135deg at rest so the diagonal glyph reads as pointing straight down
-   (a toggle, not an external link); rotated another 180deg or so (in
-   this instance stops at 315deg) when the box is open, so it points back
-   up. */
-.rfp-archive__summary::after {
-  content: '\2197';
+/* Dropdown marker — the sitewide disclosure chevron (see README →
+   Hyperlinks → Dropdowns and disclosures). An inline SVG, never the
+   browser's own default marker: 13x13, --c-red stroke at 1.8, rotating
+   180deg when the box opens. Disclosures do NOT use the .card-arrow
+   external-link badge; that badge is reserved for links that navigate
+   to another web page. */
+.rfp-archive__chevron {
   margin-left: auto;
   flex-shrink: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 26px;
-  height: 26px;
-  border-radius: 50%;
-  background: var(--c-dark);
-  color: var(--c-white);
-  font-size: var(--fs-micro);
-  line-height: 1;
-  transform: rotate(135deg);
-  transition: transform 0.2s ease;
+  transition: transform 0.25s;
 }
 
-@keyframes rfp-archive__arrow-slide {
-  0%   { background-position: 0% 50%; }
-  100% { background-position: 200% 50%; }
-}
+.rfp-archive__box[open] .rfp-archive__chevron { transform: rotate(180deg); }
 
-.rfp-archive__box:hover .rfp-archive__summary::after {
-  background: linear-gradient(100deg, var(--c-accent), var(--c-red), var(--c-accent));
-  background-size: 220% 100%;
-  animation: rfp-archive__arrow-slide 1.2s linear infinite;
+@media (prefers-reduced-motion: reduce) {
+  .rfp-archive__chevron { transition: none; }
 }
 
 .rfp-archive__box[open] .rfp-archive__summary {
@@ -295,7 +280,6 @@ img { max-width: 100%; height: auto; display: block; }
   border-bottom: 1px solid rgba(13, 13, 12, 0.08);
 }
 
-.rfp-archive__box[open] .rfp-archive__summary::after { transform: rotate(315deg); }
 
 /* Static variant — permanently "open": no dropdown arrow, no pointer
    cursor, content always visible. Unlike the collapsible boxes it carries
@@ -317,7 +301,7 @@ img { max-width: 100%; height: auto; display: block; }
   border-bottom: 1px solid rgba(255, 255, 255, 0.28);
 }
 
-.rfp-archive__box--static .rfp-archive__summary::after { display: none; }
+.rfp-archive__box--static .rfp-archive__chevron { display: none; }
 
 /* The 2026 block is a short "coming soon" note, not a document: its lead-in
    line sits at body size like the paragraphs under it and carries its
@@ -343,6 +327,13 @@ img { max-width: 100%; height: auto; display: block; }
 .rfp-archive__band .rfp__text a {
   color: var(--c-white);
   border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+  transition: opacity 0.15s;
+}
+
+.rfp-archive__band .rfp__text a:hover {
+  color: var(--c-white);
+  border-color: rgba(255, 255, 255, 0.5);
+  opacity: 0.7;
 }
 
 .rfp-archive__subhead {
@@ -392,12 +383,13 @@ img { max-width: 100%; height: auto; display: block; }
    events implements that one. The two are unreconciled; see about's
    "Hyperlinks in body copy" section before treating either as canonical. */
 .rfp__text a {
-  color: var(--c-red);
+  color: var(--c-dark);
   font-weight: 500;
-  transition: opacity 0.15s;
+  border-bottom: 1px solid rgba(13, 13, 12, 0.35);
+  transition: color 0.15s, border-color 0.15s;
 }
 
-.rfp__text a:hover { opacity: 0.7; }
+.rfp__text a:hover { color: var(--c-red); border-color: var(--c-red); }
 
 /* "Upcoming" status pill — same shape as .tag--closed, purple instead of
    red so an open-in-the-future cycle reads distinctly from a closed one. */
