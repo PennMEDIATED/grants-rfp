@@ -385,9 +385,12 @@ img { max-width: 100%; height: auto; display: block; }
   margin-bottom: var(--space-200);
 }
 
-/* Sitewide inline-link treatment: red, 500, no underline, opacity on hover
-   and no colour change. Same rule as data's .intro__body a, events'
-   .event-card__caption a and blog's .post-excerpt a. */
+/* Matches the red/500/opacity-hover treatment used by data's .intro__body a,
+   blog's .post-excerpt a and our-team-faculty's bio links.
+   NOTE: about/README.md documents a different *intended* sitewide rule for
+   this slot — dark text with an underline, turning --c-red on hover — and
+   events implements that one. The two are unreconciled; see about's
+   "Hyperlinks in body copy" section before treating either as canonical. */
 .rfp__text a {
   color: var(--c-red);
   font-weight: 500;
