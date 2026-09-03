@@ -203,6 +203,11 @@
           document.documentElement.scrollHeight,
           document.body.scrollHeight
         );
+        // Two shapes on purpose: { frameHeight } is the shared Penn MEDIATED
+        // message every repo now sends (see the README); the older
+        // partners-page-resize message stays for any embed still listening
+        // for it.
+        window.parent.postMessage({ frameHeight: Math.ceil(height) }, '*');
         window.parent.postMessage(
           { type: 'partners-page-resize', height: height },
           '*'
