@@ -61,6 +61,21 @@ All four repos are static HTML/CSS built off the same design system. If you're a
 - **Image sizing — avoid the squash bug**: size logos with `max-height` + `max-width: 100%` and `width: auto; height: auto;` — not a fixed `height` + `max-width: 100%` pair, which distorts wide lockups once the grid column narrows enough to hit the `max-width` cap while height stays pinned. Use a `--modifier` class (e.g. `.school-block__logo--seas`) to bump `max-height` for a lockup that reads too small next to its neighbors at the shared size.
 - **Dropdown arrow badge**: `.rfp-archive__summary::after` is a 26px circular badge (dark background, white glyph) — the same visual language as `about`'s/`grants`' `.card-arrow` external-link badge, but pointing down (▾, rotating 180° when the box is `[open]`) instead of diagonal, since this signals an in-page toggle rather than an external link. On hover of the box, the badge switches to the same continuously sliding purple-to-red gradient used by `.card-arrow` (`linear-gradient(100deg, var(--c-accent), var(--c-red), var(--c-accent))`, animated via `background-position`) rather than a flat color swap — keep this consistent if either badge changes.
 - **Dropdown box (`.rfp-archive__box`)**: neutral border (`rgba(13,13,12,0.08)`) at rest and on hover — no border-color change on hover (the color signal lives entirely in the arrow badge now, not the box border).
+## Embedding this page
+
+WordPress renders the real site; this repo is the source. The launch plan is direct-to-disk deployment, which needs no iframe — but iframe embedding still works and is the documented fallback, so keep this snippet accurate if you rename the repo or change its Pages URL.
+
+Paste into a WordPress Code block (or Divi Code module) as one line:
+
+```html
+<iframe id="pm-grants-rfp" src="https://pennmediated.github.io/grants-rfp/" title="Grants Request for Proposals — Penn MEDIATED" loading="lazy" style="width:100%;height:1250px;border:0;display:block"></iframe><script>(function(){var f=document.getElementById('pm-grants-rfp');window.addEventListener('message',function(e){if(e.source!==f.contentWindow)return;var d=e.data||{},h=d.frameHeight||(d.type==='partners-page-resize'?d.height:0);if(h)f.style.height=h+'px';});})();</script>
+```
+
+The `height` in the snippet is only the starting value. Every Penn MEDIATED page posts its real height to the parent as `{{ frameHeight: <int> }}` — on load, on resize, once webfonts settle, and on any `ResizeObserver` change, so reveal animations, expanding cards and `<details>` toggles all resize the frame. The listener in the snippet applies it. `grants-rfp` also emits an older `{{ type: 'partners-page-resize', height }}` message; the snippet accepts both.
+
+The page checks `window.self === window.top` before posting, so opening it directly does nothing. If you add a new page repo, copy the script from the bottom of this `index.html` so it behaves the same way.
+
+
 ## Images and video
 
 This applies to every image, GIF and video added to any Penn MEDIATED repo. It is written to be followed directly — by a person or by a Claude session — without further instruction.
