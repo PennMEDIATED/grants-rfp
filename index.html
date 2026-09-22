@@ -200,13 +200,18 @@
       var lastSentHeight = 0;
 
       function postHeight() {
-        /* scrollHeight only, and no slack: once the frame is as tall as the
-           content, html and body report the FRAME's height, so any pixel added
-           here comes back as a taller frame next tick and the iframe grows
-           without bound. */
+        /* MEASURE THE BODY, NEVER documentElement. <html> stretches to fill the
+           frame, so documentElement.scrollHeight can never report LESS than the
+           frame's current height — feeding it back pins the iframe at whatever
+           it already is and it can never shrink. Anything that inflates it once
+           during load (webfonts settling, the reveal transforms) is then
+           permanent, which is what left a tall band of white above the footer.
+           body.scrollHeight is content-driven and can go down as well as up.
+           Verified 2026-09: at 1512px wide home's real content is 3879px while
+           documentElement.scrollHeight reported 4766px, the frame's own height. */
         var height = Math.ceil(Math.max(
-          document.documentElement.scrollHeight,
-          document.body.scrollHeight
+          document.body.scrollHeight,
+          document.body.offsetHeight
         ));
         if (Math.abs(height - lastSentHeight) < 2) return;
         lastSentHeight = height;
