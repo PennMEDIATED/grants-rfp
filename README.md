@@ -1,6 +1,6 @@
 # Penn MEDIATED — Grants RFP
 
-The "About MEDIATED Grants" page for the [Center on Media, Technology and Democracy](https://infodem.upenn.edu). Static HTML/CSS, no build step. Introduces the Grants program, surfaces the current (2026) request for proposals, and archives past (2025) RFP guidelines — an interactive dashboard elsewhere on the site covers the funded-grants data itself.
+The "About MEDIATED Grants" page for the [Center on Media, Technology and Democracy](https://mediated.upenn.edu). Static HTML/CSS, no build step. Introduces the Grants program, surfaces the current (2026) request for proposals, and archives past (2025) RFP guidelines — an interactive dashboard elsewhere on the site covers the funded-grants data itself.
 
 Same conventions as the [`about`](https://github.com/PennMEDIATED/about), [`home`](https://github.com/PennMEDIATED/home), and [`grants`](https://github.com/PennMEDIATED/grants) repos — shared spacing tokens, brand colors, and fonts. This page intentionally has no top nav bar and no newsletter/supporters block; embedding via WordPress iframe is handled by the resize script at the bottom of `index.html`.
 

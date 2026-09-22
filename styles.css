@@ -175,7 +175,9 @@ img { max-width: 100%; height: auto; display: block; }
    full white section in its own right, not just a gap-filler. */
 .rfp-archive__below {
   padding-top: var(--space-1000);
-  padding-bottom: var(--space-800);
+  /* 80px, not 64px: this is the last block on the page, and every page repo
+     ends with --space-1000 before the footer. Do not "tidy" this to --space-800. */
+  padding-bottom: var(--space-1000);
 }
 
 /* Framed card — title stacked above content — matching the bordered,
