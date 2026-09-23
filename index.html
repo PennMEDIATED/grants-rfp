@@ -238,6 +238,14 @@
       } else {
         setInterval(postHeight, 500);
       }
+
+      /* Late-settling layout: webfonts swapping in, images decoding, a lazy
+         iframe resolving. ResizeObserver catches most of it, but a change that
+         lands between the last observed tick and paint can leave the frame a
+         few px short of the content. Two cheap re-measures after load close
+         that window; postHeight's hysteresis makes a no-op re-post free. */
+      setTimeout(postHeight, 300);
+      setTimeout(postHeight, 1200);
     })();
   </script>
 
