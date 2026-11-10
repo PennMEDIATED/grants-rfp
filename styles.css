@@ -447,9 +447,6 @@ img { max-width: 100%; height: auto; display: block; }
   color: var(--c-dark);
 }
 
-/* Criteria list followed directly by a note paragraph. */
-.criteria-list--tight { margin-bottom: var(--space-250); }
-
 .criteria-list p strong { font-weight: 700; color: var(--c-dark); }
 
 /* ── Secondary goals ── */
@@ -460,23 +457,20 @@ img { max-width: 100%; height: auto; display: block; }
   margin-bottom: var(--space-800);
 }
 
+/* Two-card variant (the 2026-27 Grant Categories). */
+.secondary-goals__grid--two {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin-bottom: var(--space-300);
+}
+
 @media (max-width: 900px) {
-  .secondary-goals__grid { grid-template-columns: 1fr; }
+  .secondary-goals__grid,
+  .secondary-goals__grid--two { grid-template-columns: 1fr; }
 }
 
 .secondary-goals__item {
   background: var(--c-pale-orange);
   padding: var(--space-300);
-}
-
-/* Grant amount line under a category card's heading. */
-.secondary-goals__item .secondary-goals__amount {
-  font-size: var(--fs-micro);
-  font-weight: 700;
-  letter-spacing: 1.44px;
-  text-transform: uppercase;
-  color: var(--c-red);
-  margin-bottom: var(--space-150);
 }
 
 /* In-text links inside the cards (Hyperlinks category 1, light ground). */
@@ -543,6 +537,24 @@ img { max-width: 100%; height: auto; display: block; }
 
 .school-block__logo--seas { max-height: 48px; }
 .school-block__logo--law { max-height: 28px; }
+
+/* Organisation line opening the current RFP panel. */
+.rfp__text--org { font-weight: 500; }
+
+/* Plain list of eligible schools inside a spec-list row. */
+.school-list {
+  list-style: disc;
+  padding-left: var(--space-300);
+  margin-top: var(--space-100);
+}
+
+.school-list li {
+  font-family: var(--f-sans);
+  font-size: var(--fs-body);
+  font-weight: 300;
+  line-height: var(--lh-body);
+  color: var(--c-dark);
+}
 
 /* ── Grant specs — label/description rows ── */
 .spec-list {
