@@ -329,23 +329,26 @@ img { max-width: 100%; height: auto; display: block; }
 
 /* Copy sitting directly on the orange band, mirroring team-leadership's
    .team-section--gradient treatment. The red inline-link colour is
-   invisible against --c-red, so links on the band go white. */
-.rfp-archive__band .rfp-archive__summary-title,
-.rfp-archive__band .rfp-archive__subhead,
-.rfp-archive__band .rfp__text {
+   invisible against --c-red, so links on the band go white.
+   Scoped to the static note only: the current RFP's full panel
+   (.rfp-archive__box--current) also sits on the band, but on its own
+   light ground, so it keeps the default dark copy and red links. */
+.rfp-archive__band .rfp-archive__box--static .rfp-archive__summary-title,
+.rfp-archive__band .rfp-archive__box--static .rfp-archive__subhead,
+.rfp-archive__band .rfp-archive__box--static .rfp__text {
   color: var(--c-white);
 }
 
 /* The documented exception to the rule above: on a colored band the red is
    invisible, so links go white with a hairline rule under them — the same
    form as events' .seminar__body a on its gradient. */
-.rfp-archive__band .rfp__text a {
+.rfp-archive__band .rfp-archive__box--static .rfp__text a {
   color: var(--c-white);
   border-bottom: 1px solid rgba(255, 255, 255, 0.5);
   transition: opacity 0.15s;
 }
 
-.rfp-archive__band .rfp__text a:hover { opacity: 0.7; }
+.rfp-archive__band .rfp-archive__box--static .rfp__text a:hover { opacity: 0.7; }
 
 .rfp-archive__subhead {
   font-family: var(--f-sans);
@@ -408,6 +411,11 @@ img { max-width: 100%; height: auto; display: block; }
   background: var(--c-accent);
 }
 
+/* Current-cycle RFP panel — the standard collapsible box, open by default,
+   sitting on the orange band. Its last block carries no trailing margin so
+   the box's own padding is the only inset at the bottom. */
+.rfp-archive__content > :last-child { margin-bottom: 0; }
+
 /* ── Criteria list — numbered ── */
 .criteria-list {
   display: flex;
@@ -439,6 +447,9 @@ img { max-width: 100%; height: auto; display: block; }
   color: var(--c-dark);
 }
 
+/* Criteria list followed directly by a note paragraph. */
+.criteria-list--tight { margin-bottom: var(--space-250); }
+
 .criteria-list p strong { font-weight: 700; color: var(--c-dark); }
 
 /* ── Secondary goals ── */
@@ -457,6 +468,25 @@ img { max-width: 100%; height: auto; display: block; }
   background: var(--c-pale-orange);
   padding: var(--space-300);
 }
+
+/* Grant amount line under a category card's heading. */
+.secondary-goals__item .secondary-goals__amount {
+  font-size: var(--fs-micro);
+  font-weight: 700;
+  letter-spacing: 1.44px;
+  text-transform: uppercase;
+  color: var(--c-red);
+  margin-bottom: var(--space-150);
+}
+
+/* In-text links inside the cards (Hyperlinks category 1, light ground). */
+.secondary-goals__item a {
+  color: var(--c-red-dark);
+  font-weight: 500;
+  transition: opacity 0.15s;
+}
+
+.secondary-goals__item a:hover { opacity: 0.7; }
 
 .secondary-goals__item h4 {
   font-family: var(--f-sans);
