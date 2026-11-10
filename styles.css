@@ -457,15 +457,34 @@ img { max-width: 100%; height: auto; display: block; }
   margin-bottom: var(--space-800);
 }
 
-/* Two-card variant (the 2026-27 Grant Categories). */
-.secondary-goals__grid--two {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  margin-bottom: var(--space-300);
+/* Stacked variant (the 2026-27 Grant Categories): one full-width card per
+   category, one above the other. Full-width cards take body-size copy, with
+   the measure capped for reading comfort. */
+.secondary-goals__grid--stack { grid-template-columns: minmax(0, 1fr); }
+
+.secondary-goals__grid--stack .secondary-goals__item h4 {
+  font-size: var(--fs-lede);
+  margin-bottom: var(--space-150);
 }
 
+.secondary-goals__grid--stack .secondary-goals__item p {
+  font-size: var(--fs-body);
+  max-width: 75ch;
+}
+
+/* Funding amount line under each category heading. */
+.secondary-goals__grid--stack .secondary-goals__item .secondary-goals__amount {
+  font-size: var(--fs-small);
+  font-weight: 700;
+  letter-spacing: 1.44px;
+  color: var(--c-red);
+  margin-bottom: var(--space-150);
+}
+
+.secondary-goals__grid--stack .secondary-goals__item h4 { margin-bottom: var(--space-075); }
+
 @media (max-width: 900px) {
-  .secondary-goals__grid,
-  .secondary-goals__grid--two { grid-template-columns: 1fr; }
+  .secondary-goals__grid { grid-template-columns: 1fr; }
 }
 
 .secondary-goals__item {
