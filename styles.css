@@ -135,7 +135,9 @@ img { max-width: 100%; height: auto; display: block; }
   display: flex;
   flex-direction: column;
   gap: var(--space-300);
-  margin-bottom: var(--space-400);
+  /* No bottom margin: .intro's own padding-bottom is the only gap before
+     the RFP heading (was 32px + 48px). */
+  margin-bottom: 0;
 }
 
 .intro__body p {
@@ -145,6 +147,15 @@ img { max-width: 100%; height: auto; display: block; }
   line-height: var(--lh-lede);
   color: var(--c-dark);
 }
+
+/* In-text links on white — same treatment as .rfp__text a. */
+.intro__body a {
+  color: var(--c-red-dark);
+  font-weight: 500;
+  transition: opacity 0.15s;
+}
+
+.intro__body a:hover { opacity: 0.7; }
 
 /* =============================================================================
    RFP ARCHIVE  ("2025 RFP Guidelines") — evaluation criteria, secondary
@@ -163,9 +174,13 @@ img { max-width: 100%; height: auto; display: block; }
   padding-top: 0;
 }
 
+/* Current-RFP block. Formerly an orange band holding a beige panel; now
+   plain white so the page carries one fill colour (--c-light-bg, for
+   callouts only) and orange works as an accent, not a surface. */
 .rfp-archive__band {
-  background: var(--c-red);
-  padding-block: var(--space-1000);
+  background: none;
+  padding-top: 0;
+  padding-bottom: var(--space-800);
 }
 
 /* Wrapper for content that sits below the orange band, still inside the
@@ -174,7 +189,7 @@ img { max-width: 100%; height: auto; display: block; }
    .whats-new: padding-top:80px, padding-bottom:64px), since this is a
    full white section in its own right, not just a gap-filler. */
 .rfp-archive__below {
-  padding-top: var(--space-1000);
+  padding-top: var(--space-800);
   /* 80px, not 64px: this is the last block on the page, and every page repo
      ends with --space-1000 before the footer. Do not "tidy" this to --space-800. */
   padding-bottom: var(--space-1000);
@@ -188,15 +203,17 @@ img { max-width: 100%; height: auto; display: block; }
 .rfp-archive__past {
   display: flex;
   flex-direction: column;
-  background: var(--c-white);
-  border: 1px solid rgba(13, 13, 12, 0.08);
-  padding: var(--space-800);
-  box-shadow: 0 20px 60px rgba(13, 13, 12, 0.08);
+  /* No card of its own (no fill, border or shadow): a hairline rule
+     separates past RFPs from the current one. */
+  border-top: 1px solid rgba(13, 13, 12, 0.12);
+  padding-top: var(--space-800);
 }
 
 /* Sans, weight 700: sitewide, 700 is the white-background section-heading
    weight and 600 is reserved for headings on colored blocks. Same rule as
-   grants-overview's .section-title. */
+   grants-overview's .section-title. The current RFP's heading uses the
+   same style so the two sections read as a matched pair. */
+.rfp-archive__current-title,
 .rfp-archive__past-title {
   font-family: var(--f-sans);
   font-size: var(--fs-h2);
@@ -211,12 +228,6 @@ img { max-width: 100%; height: auto; display: block; }
   min-width: 0;
 }
 
-@media (max-width: 900px) {
-  .rfp-archive__past { padding: var(--space-400); }
-}
-@media (max-width: 480px) {
-  .rfp-archive__past { padding: var(--space-250); }
-}
 
 /* Sans-serif, not serif — matches the sitewide section-heading pattern
    (DM Sans, e.g. /grants' own .rfp__title, /about's .partners__title and
@@ -227,24 +238,21 @@ img { max-width: 100%; height: auto; display: block; }
    .related-centers__title) are deliberately pulled back from 700 to 600 on
    colored-block backgrounds; 700 is reserved for white-background section
    headings like /grants' .rfp__title. */
-.rfp-archive__title {
-  font-family: var(--f-sans);
-  font-size: var(--fs-h2);
-  font-weight: 600;
-  letter-spacing: -0.02em;
-  line-height: var(--lh-heading);
-  color: var(--c-white);
-  margin-bottom: var(--space-300);
-}
-
 .rfp-archive__box {
   border: 1px solid rgba(13, 13, 12, 0.08);
-  background: var(--c-light-bg);
+  background: var(--c-white);
   padding: var(--space-400);
   transition: border-color 0.15s;
 }
 
 .rfp-archive__box + .rfp-archive__box { margin-top: var(--space-300); }
+
+/* The current RFP sits directly on the page: no frame, fill or inset. */
+.rfp-archive__box--current {
+  background: none;
+  border: 0;
+  padding: 0;
+}
 
 .rfp-archive__summary {
   display: flex;
@@ -355,7 +363,7 @@ img { max-width: 100%; height: auto; display: block; }
   font-size: var(--fs-lede);
   font-weight: 700;
   color: var(--c-dark);
-  margin-top: var(--space-800);
+  margin-top: var(--space-500);
   margin-bottom: var(--space-200);
 }
 
@@ -421,7 +429,7 @@ img { max-width: 100%; height: auto; display: block; }
   display: flex;
   flex-direction: column;
   gap: var(--space-250);
-  margin-bottom: var(--space-800);
+  margin-bottom: var(--space-500);
 }
 
 .criteria-list li {
@@ -454,7 +462,7 @@ img { max-width: 100%; height: auto; display: block; }
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: var(--space-300);
-  margin-bottom: var(--space-800);
+  margin-bottom: var(--space-500);
 }
 
 /* Stacked variant (the 2026-27 Grant Categories): one full-width card per
@@ -483,12 +491,45 @@ img { max-width: 100%; height: auto; display: block; }
 
 .secondary-goals__grid--stack .secondary-goals__item h4 { margin-bottom: var(--space-075); }
 
+/* Expandable "Full details" inside a grant-category card. Same chevron
+   as the RFP disclosures; the summary reads as a link-weight control. */
+.opportunity-details { margin-top: var(--space-200); max-width: 75ch; }
+
+.opportunity-details__summary {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-100);
+  cursor: pointer;
+  list-style: none;
+  font-family: var(--f-sans);
+  font-size: var(--fs-small);
+  font-weight: 700;
+  color: var(--c-red-dark);
+}
+
+.opportunity-details__summary::-webkit-details-marker { display: none; }
+.opportunity-details__summary .rfp-archive__chevron { margin-left: 0; }
+.opportunity-details[open] .rfp-archive__chevron { transform: rotate(180deg); }
+
+.opportunity-details__body {
+  margin-top: var(--space-200);
+  padding-top: var(--space-200);
+  border-top: 1px solid rgba(13, 13, 12, 0.08);
+}
+
+.secondary-goals__grid--stack .secondary-goals__item .opportunity-details__body p { margin-bottom: var(--space-150); }
+.opportunity-details__body .school-list { margin: 0 0 var(--space-150); }
+.opportunity-details__body > :last-child { margin-bottom: 0; }
+
+/* Orange as an accent edge, not a fill. */
+.secondary-goals__grid--stack .secondary-goals__item { border-left: 3px solid var(--c-red); }
+
 @media (max-width: 900px) {
   .secondary-goals__grid { grid-template-columns: 1fr; }
 }
 
 .secondary-goals__item {
-  background: var(--c-pale-orange);
+  background: var(--c-light-bg);
   padding: var(--space-300);
 }
 
@@ -522,9 +563,9 @@ img { max-width: 100%; height: auto; display: block; }
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: var(--space-150);
-  background: var(--c-pale-orange);
+  background: var(--c-light-bg);
   padding: var(--space-250);
-  margin-bottom: var(--space-800);
+  margin-bottom: var(--space-500);
 }
 
 @media (max-width: 900px) {
@@ -557,9 +598,6 @@ img { max-width: 100%; height: auto; display: block; }
 .school-block__logo--seas { max-height: 48px; }
 .school-block__logo--law { max-height: 28px; }
 
-/* Organisation line opening the current RFP panel. */
-.rfp__text--org { font-weight: 500; }
-
 /* Plain list of eligible schools inside a spec-list row. */
 .school-list {
   list-style: disc;
@@ -579,7 +617,7 @@ img { max-width: 100%; height: auto; display: block; }
 .spec-list {
   display: flex;
   flex-direction: column;
-  margin-bottom: var(--space-800);
+  margin-bottom: var(--space-500);
 }
 
 .spec-list__row {
@@ -614,8 +652,8 @@ img { max-width: 100%; height: auto; display: block; }
   flex-wrap: wrap;
   gap: var(--space-400);
   padding: var(--space-300);
-  background: var(--c-pale-orange);
-  margin-bottom: var(--space-800);
+  background: var(--c-light-bg);
+  margin-bottom: var(--space-500);
 }
 
 .dates-row__item { min-width: 150px; }
@@ -669,7 +707,7 @@ img { max-width: 100%; height: auto; display: block; }
 }
 
 @media (max-width: 640px) {
-  .rfp-archive__box:not(.rfp-archive__box--static) { padding: var(--space-300); }
+  .rfp-archive__box:not(.rfp-archive__box--static):not(.rfp-archive__box--current) { padding: var(--space-300); }
   .dates-row { flex-direction: column; gap: var(--space-300); }
 }
 
